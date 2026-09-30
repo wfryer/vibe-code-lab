@@ -25,4 +25,4 @@ Four AI tools were each asked to turn our class's copyright game peer review res
 
 ## License
 
-These materials are licensed by [Dr. Wesley Fryer](https://www.wesfryer.com/) under a [Creative Commons Attribution-Only License](https://creativecommons.org/licenses/by/2.0/). You can reuse and remix them for free with attribution.
+These materials are licensed by [Dr. Wesley Fryer](https://www.wesfryer.com/) under a MIT license. If you can reuse and remix them please include attribution, and [let me know](https://wesfryer.com/contact/)!.
