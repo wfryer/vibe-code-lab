@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Copyright Game Arcade: Peer Review Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F9F8; --surface:#FFFFFF; --sunk:#E3F0EE;
+  --ink:#0C3436; --ink-2:#3F6466; --ink-3:#8AA7A8; --line:#C9DEDC;
+  --fun:#E79A0C; --teach:#0F8F87; --gfx:#D2457A; --works:#4458D0;
+  --fun-soft:#FDF0D5; --teach-soft:#D5F1EE; --gfx-soft:#FADDE8; --works-soft:#E0E4FA;
+  --star:#FFD34D;
+  --display:"Bungee","Arial Black",Impact,system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#082122; --surface:#0F2F31; --sunk:#0B282A;
+    --ink:#E4F3F1; --ink-2:#A9C6C5; --ink-3:#5F8284; --line:#1F4547;
+    --fun:#F5B23A; --teach:#2FC2B7; --gfx:#EE6C9C; --works:#7C8CF2;
+    --fun-soft:#3A2C0C; --teach-soft:#0D3B38; --gfx-soft:#3D1628; --works-soft:#1C2250;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#082122; --surface:#0F2F31; --sunk:#0B282A;
+  --ink:#E4F3F1; --ink-2:#A9C6C5; --ink-3:#5F8284; --line:#1F4547;
+  --fun:#F5B23A; --teach:#2FC2B7; --gfx:#EE6C9C; --works:#7C8CF2;
+  --fun-soft:#3A2C0C; --teach-soft:#0D3B38; --gfx-soft:#3D1628; --works-soft:#1C2250;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.55}
+img,svg{max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--works);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1140px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+section{padding:clamp(40px,6vw,72px) 0}
+h2{font-size:clamp(1.5rem,3.2vw,2.1rem);line-height:1.15;margin:0 0 .4em;font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.2rem;margin:0 0 .35em;line-height:1.25}
+p{margin:0 0 1em;max-width:68ch}
+.lede{font-size:1.15rem;color:var(--ink-2)}
+.muted{color:var(--ink-2)}
+.small{font-size:.9rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- HERO ---------- */
+.hero{padding-top:clamp(28px,5vw,56px);padding-bottom:clamp(32px,5vw,56px);border-bottom:2px solid var(--line)}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:center}
+.kicker{font-weight:700;color:var(--ink-2);margin:0 0 .6rem}
+.marquee{font-family:var(--display);font-weight:400;font-size:clamp(2.6rem,7vw,5rem);line-height:.98;margin:0 0 1.1rem;color:var(--ink);
+  text-shadow:3px 3px 0 var(--fun),6px 6px 0 var(--teach),9px 9px 0 var(--gfx),12px 12px 0 var(--works);letter-spacing:.01em}
+.hero p{font-size:1.15rem}
+.stats-line{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:1.2rem;padding:0;list-style:none}
+.stats-line li{font-weight:700}
+.stats-line b{font-family:var(--display);font-weight:400;font-size:1.6rem;margin-right:6px;vertical-align:-2px}
+
+/* controller */
+.pad-area{display:flex;flex-direction:column;align-items:center;gap:18px}
+.controller{position:relative;width:min(100%,440px);aspect-ratio:2/1.02;margin-bottom:10%;background:var(--ink);border-radius:120px 120px 150px 150px / 110px 110px 170px 170px;
+  box-shadow:0 10px 0 color-mix(in srgb,var(--ink) 70%,black), 0 22px 40px -18px rgba(0,0,0,.45)}
+.controller::before,.controller::after{content:"";position:absolute;bottom:-14%;width:30%;height:46%;background:var(--ink);border-radius:50% 50% 45% 45%}
+.controller::before{left:4%;transform:rotate(18deg)}
+.controller::after{right:4%;transform:rotate(-18deg)}
+.dpad{position:absolute;left:14%;top:30%;width:22%;aspect-ratio:1;z-index:2}
+.dpad span{position:absolute;background:color-mix(in srgb,var(--paper) 22%,var(--ink));border-radius:5px}
+.dpad span:nth-child(1){left:33%;top:0;width:34%;height:100%}
+.dpad span:nth-child(2){top:33%;left:0;height:34%;width:100%}
+.pad-label{position:absolute;left:50%;top:18%;transform:translateX(-50%);z-index:2;font-family:var(--display);font-size:clamp(.6rem,1.6vw,.78rem);color:color-mix(in srgb,var(--paper) 70%,var(--ink));letter-spacing:.06em;text-align:center;line-height:1.3}
+.face{position:absolute;right:10%;top:17%;width:34%;aspect-ratio:1;z-index:2}
+.btn-cat{position:absolute;width:40%;aspect-ratio:1;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;
+  box-shadow:inset 0 -5px 0 rgba(0,0,0,.22);transition:transform .12s ease, box-shadow .12s ease}
+.btn-cat svg{width:56%;height:56%;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.btn-cat[aria-pressed="true"]{transform:translateY(3px) scale(.96);box-shadow:inset 0 -1px 0 rgba(0,0,0,.25),0 0 0 4px var(--paper),0 0 0 7px currentColor}
+.btn-cat:hover{transform:translateY(1px)}
+.b-fun{top:0;left:30%;background:var(--fun);color:var(--fun)}
+.b-teach{top:30%;left:0;background:var(--teach);color:var(--teach)}
+.b-gfx{top:30%;right:0;background:var(--gfx);color:var(--gfx)}
+.b-works{bottom:0;left:30%;background:var(--works);color:var(--works)}
+.cat-readout{width:min(100%,440px);background:var(--surface);border:2px solid var(--line);border-left:10px solid var(--cat,var(--fun));border-radius:14px;padding:14px 18px;min-height:128px}
+.cat-readout h3{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.cat-readout .avg{font-family:var(--display);font-weight:400;font-size:1.3rem;color:var(--cat)}
+.cat-readout p{margin:0;color:var(--ink-2)}
+.hint{font-size:.88rem;color:var(--ink-2);margin:0}
+
+/* ---------- AT A GLANCE ---------- */
+.champ{display:grid;grid-template-columns:auto 1fr;gap:clamp(18px,3vw,36px);align-items:center;background:var(--surface);border:2px solid var(--line);border-radius:22px;padding:clamp(18px,3vw,32px);position:relative;overflow:hidden}
+.trophy{width:clamp(84px,12vw,128px);aspect-ratio:1;border-radius:50%;background:var(--star);display:grid;place-items:center;box-shadow:inset 0 -8px 0 rgba(0,0,0,.12)}
+.trophy svg{width:58%;fill:#7A5200}
+.champ .game-name{font-family:var(--display);font-size:clamp(1.5rem,4vw,2.4rem);line-height:1.05;margin:.1em 0 .3em}
+.champ .score-big{font-family:var(--display);font-size:clamp(1.1rem,2.4vw,1.4rem)}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.cchip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-weight:700;font-size:.92rem;background:var(--soft);color:var(--ink)}
+.cchip i{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block}
+.shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}
+.slot{background:var(--surface);border:2px solid var(--line);border-top:8px solid var(--c);border-radius:14px;padding:14px 16px}
+.slot .cat{font-weight:700;color:var(--c);margin:0 0 4px}
+.slot .who{font-family:var(--display);font-size:1.05rem;line-height:1.15;margin:0 0 6px}
+.slot .num{font-weight:700}
+.slot .note{font-size:.86rem;color:var(--ink-2);margin:6px 0 0}
+
+/* ---------- LEADERBOARD ---------- */
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.fchip{border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;cursor:pointer;font-weight:700;font-size:.95rem}
+.fchip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.showing{font-size:.92rem;color:var(--ink-2);margin:6px 0 12px}
+.table-scroll{overflow-x:auto;border:2px solid var(--line);border-radius:16px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:860px}
+th,td{padding:12px 12px;text-align:left;vertical-align:middle}
+thead th{background:var(--sunk);font-size:.9rem;position:sticky;top:0}
+tbody tr{border-top:1px solid var(--line)}
+tbody tr.first{background:color-mix(in srgb,var(--star) 16%,var(--surface))}
+.sortbtn{background:none;border:0;padding:4px 2px;cursor:pointer;font-weight:700;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.sortbtn .arrow{font-size:.75rem;opacity:.35}
+th[aria-sort="ascending"] .arrow,th[aria-sort="descending"] .arrow{opacity:1}
+.th-dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:var(--c)}
+.rank{font-family:var(--display);font-size:1.15rem;width:56px}
+.gname{font-weight:700;min-width:200px}
+.gname small{display:block;font-weight:400;color:var(--ink-2);font-size:.84rem}
+.sc{min-width:92px}
+.sc b{display:block;font-size:1rem;margin-bottom:4px}
+.bar{position:relative;height:10px;border-radius:5px;background:var(--sunk);overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--c);border-radius:5px;transform-origin:left;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+.overall{font-family:var(--display);font-size:1.25rem}
+.pill{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--ink-2);margin-left:4px}
+.pill.warn{background:var(--fun-soft);color:var(--ink)}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.empty{padding:28px;text-align:center;color:var(--ink-2)}
+
+/* ---------- TRENDS ---------- */
+.trend{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(20px,4vw,48px);align-items:start;padding:clamp(24px,4vw,40px) 0;border-top:2px dashed var(--line)}
+.trend:first-of-type{border-top:0}
+.trend .big{font-family:var(--display);font-size:clamp(1.8rem,4.2vw,2.6rem);line-height:1;display:block;margin-bottom:6px}
+.chart-card{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:clamp(14px,2.5vw,24px)}
+.chart-card h4{margin:0 0 10px;font-size:1rem}
+.hbar-row{display:grid;grid-template-columns:150px 1fr 48px;gap:10px;align-items:center;margin:9px 0}
+.hbar-row .lbl{font-weight:700;font-size:.95rem}
+.hbar-row .track{height:26px;background:var(--sunk);border-radius:8px;overflow:hidden}
+.hbar-row .fill{height:100%;background:var(--c);width:var(--w);border-radius:8px;transform-origin:left;animation:grow .9s cubic-bezier(.2,.8,.2,1) both}
+.hbar-row .val{font-weight:700;text-align:right}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.88rem;color:var(--ink-2);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.callout{background:var(--sunk);border-radius:14px;padding:14px 16px;margin-top:14px}
+.callout p{margin:0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+svg text{font-family:var(--body);fill:var(--ink)}
+.donut-wrap{display:grid;grid-template-columns:150px 1fr;gap:16px;align-items:center}
+.dist-seg{height:100%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;color:var(--ink)}
+
+/* ---------- CARDS ---------- */
+.seg{display:inline-flex;flex-wrap:wrap;gap:4px;background:var(--sunk);padding:4px;border-radius:999px;margin:10px 0 18px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:7px 14px;font-weight:700;cursor:pointer;font-size:.95rem}
+.seg button[aria-pressed="true"]{background:var(--surface);box-shadow:0 1px 0 var(--line),0 0 0 2px var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.gcard{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:18px 18px 14px;display:flex;flex-direction:column;gap:10px;position:relative}
+.gcard.top{border-color:var(--star);box-shadow:0 0 0 3px color-mix(in srgb,var(--star) 55%,transparent)}
+.gcard.grow{border-style:dashed;border-color:var(--teach)}
+.gcard header{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.gcard .gt{font-family:var(--display);font-size:1.12rem;line-height:1.12;margin:0}
+.gcard .meta{font-size:.84rem;color:var(--ink-2);margin:4px 0 0}
+.gcard .ov{font-family:var(--display);font-size:1.5rem;line-height:1;text-align:right;white-space:nowrap}
+.gcard .ov small{display:block;font-family:var(--body);font-size:.75rem;font-weight:700;color:var(--ink-2)}
+.ribbon{align-self:flex-start;font-weight:700;font-size:.85rem;padding:4px 10px;border-radius:8px}
+.ribbon.top{background:var(--star);color:#3a2800}
+.ribbon.grow{background:var(--teach-soft);color:var(--ink)}
+.ribbon.small{background:var(--fun-soft);color:var(--ink)}
+.strip{display:grid;grid-template-columns:72px 1fr 34px;gap:8px;align-items:center;font-size:.88rem}
+.strip .k{font-weight:700;color:var(--c)}
+.strip .t{position:relative;height:24px;border-radius:12px;background:var(--sunk)}
+.strip .t::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w);border-radius:9px;background:color-mix(in srgb,var(--c) 28%,transparent)}
+.strip .d{position:absolute;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--c);border:2px solid var(--surface)}
+.strip .a{font-weight:700;text-align:right}
+.quote{margin:0;padding:10px 12px;border-radius:12px;font-size:.95rem}
+.quote b{display:block;font-size:.8rem;margin-bottom:2px}
+.q-like{background:var(--sunk)}
+.q-next{background:transparent;border:2px solid var(--line)}
+.teacher-note{font-size:.92rem;color:var(--ink-2);margin:0}
+details{border-top:1px solid var(--line);padding-top:8px;margin-top:auto}
+summary{cursor:pointer;font-weight:700;font-size:.92rem;padding:4px 0}
+details ul{margin:8px 0 4px;padding-left:18px;font-size:.92rem}
+details li{margin:0 0 8px}
+
+/* ---------- NEXT ---------- */
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:10px}
+.next{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:20px}
+.next .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--soft);margin-bottom:10px}
+.next .ico svg{width:26px;height:26px;fill:none;stroke:var(--c);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.next p{margin:0}
+footer{border-top:2px solid var(--line);padding:28px 0 40px;font-size:.92rem;color:var(--ink-2)}
+footer p{max-width:90ch}
+
+@media (max-width:900px){
+  .hero-grid,.trend{grid-template-columns:1fr}
+  .shelf{grid-template-columns:repeat(2,1fr)}
+  .next-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .shelf,.split{grid-template-columns:1fr}
+  .champ{grid-template-columns:1fr}
+  .hbar-row{grid-template-columns:110px 1fr 42px}
+  .donut-wrap{grid-template-columns:1fr;justify-items:center}
+  .marquee{text-shadow:2px 2px 0 var(--fun),4px 4px 0 var(--teach),6px 6px 0 var(--gfx),8px 8px 0 var(--works)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="kicker">Web Design, Fall 2026: 5.4 Copyright and Fair Use</p>
+      <h1 class="marquee">Copyright Game Arcade</h1>
+      <p>Every student built a game that teaches copyright and fair use. Then classmates played each other's games and scored them on a four-part rubric this class wrote together on the whiteboard.</p>
+      <ul class="stats-line" aria-label="Results at a glance">
+        <li><b>8</b>games</li>
+        <li><b>19</b>peer reviews</li>
+        <li><b>76</b>ratings</li>
+        <li><b>0</b>scores of 1</li>
+      </ul>
+    </div>
+    <div class="pad-area">
+      <div class="controller" role="group" aria-label="The four rubric categories. Press a button to read each one.">
+        <div class="dpad" aria-hidden="true"><span></span><span></span></div>
+        <div class="pad-label" aria-hidden="true">Class<br>rubric</div>
+        <div class="face" id="face"></div>
+      </div>
+      <div class="cat-readout" id="readout" aria-live="polite"></div>
+      <p class="hint">Press a button to read that part of the rubric.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="glance">
+    <div class="wrap">
+      <h2>The top of the scoreboard</h2>
+      <p class="lede">One game led in three of the four categories. The fourth went to a game that turned copyright questions into keys.</p>
+      <div class="champ" id="champ"></div>
+      <div class="shelf" id="shelf"></div>
+    </div>
+  </section>
+
+  <section id="leaderboard" style="background:var(--sunk)">
+    <div class="wrap">
+      <h2>Full leaderboard</h2>
+      <p>Click any column name to sort. Use the buttons to filter by how the game was built or which AI tool reviewers said the creator used. Scores are averages on a 1 to 5 scale.</p>
+      <div class="controls" id="filters" role="group" aria-label="Filter games"></div>
+      <p class="showing" id="showing" aria-live="polite"></p>
+      <div class="table-scroll">
+        <table>
+          <caption class="sr">Average peer review scores for each game</caption>
+          <thead><tr id="thead"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="trends">
+    <div class="wrap">
+      <h2>What the whole class did</h2>
+      <p class="lede">These trends are about the class as a group, not any one game.</p>
+
+      <div class="trend">
+        <div>
+          <span class="big">7 of 8</span>
+          <h3>games looked better and worked better than they played or taught</h3>
+          <p>Graphics and functionality scored higher than fun and teaching, class-wide. The class is strong at making games that look clean and run. The harder goals, making a game truly fun and truly teaching copyright, have the most room to grow.</p>
+          <div class="callout"><p><strong>The one exception:</strong> Escape the Vault scored higher on fun and teaching than on graphics. It has only one review so far, so read that result with care.</p></div>
+        </div>
+        <div>
+          <div class="chart-card">
+            <h4>Class average for each rubric category</h4>
+            <div id="catAvgs"></div>
+          </div>
+          <div class="chart-card" style="margin-top:14px">
+            <h4>Each game: how it looks and works vs. how it plays and teaches</h4>
+            <div id="dumbbell"></div>
+            <div class="legend"><span><i style="background:var(--ink)"></i>Graphics and functionality average</span><span><i style="background:transparent;border:2.5px solid var(--ink)"></i>Fun and teaching average</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trend">
+        <div>
+          <span class="big" style="color:var(--teach)">Split vote</span>
+          <h3>Teaching copyright divided reviewers more than any other category</h3>
+          <p>"Teaches about copyright" got the most low scores, four 2s, and its scores spread almost evenly from 2 to 5. Reviewers of the same game often disagreed. Copyright Carnival got both a 5 and a 2 for teaching.</p>
+          <p>Reading the comments, the high scores go to games where you have to know a copyright idea to win. In Escape the Vault, the answers are the keys. In Fair Use Tac-Toe, a wrong answer costs you your score. When learning copyright is how you win, reviewers noticed.</p>
+        </div>
+        <div class="chart-card">
+          <h4>How the 19 reviewers scored each category</h4>
+          <div id="dist"></div>
+          <div class="legend" id="distLegend"></div>
+        </div>
+      </div>
+
+      <div class="trend">
+        <div>
+          <span class="big">37%</span>
+          <h3>of reviews found clear, detailed AI documentation</h3>
+          <p>Almost every game used AI. But in 10 of 19 reviews, the reviewer could not find any clear note about how AI was used. Only 7 found a link to an AI Documentation Doc or chat log.</p>
+          <div class="callout"><p><strong>Why this matters:</strong> reviewers of the same game often gave different answers. Chef's Copyright Cafe was rated "detailed" once and "little to none" twice. If players can't find your AI notes, they don't count. One reviewer even wrote "cite what AI you used" as their suggestion.</p></div>
+        </div>
+        <div>
+          <div class="chart-card">
+            <h4>How well AI use was documented</h4>
+            <div class="donut-wrap" id="donut"></div>
+          </div>
+          <div class="chart-card" style="margin-top:14px">
+            <h4>AI tools reviewers saw named</h4>
+            <div id="tools"></div>
+            <p class="small muted" style="margin:8px 0 0">A game can use more than one tool.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="trend">
+        <div>
+          <span class="big">2 of 19</span>
+          <h3>"what I liked" comments were about learning copyright</h3>
+          <p>When reviewers said what they liked, they talked about the game itself: portals, boosts, moves counters, multiplayer, smooth animation. That's a real compliment to how well these games were built.</p>
+          <p>Their suggestions point the same way. The most common asks were more challenge and a real opponent, together in 9 of 19 suggestions. Another 4 asked for more or clearer copyright questions.</p>
+          <div class="callout"><p><strong>Also worth knowing:</strong> games built in Canva and games coded with AI scored almost exactly the same overall (3.84 vs. 3.85). The tool did not decide the result. The design choices did.</p></div>
+        </div>
+        <div>
+          <div class="chart-card">
+            <h4>What reviewers liked</h4>
+            <div id="likes"></div>
+            <p class="small muted" style="margin:8px 0 0">One comment can mention more than one thing.</p>
+          </div>
+          <div class="chart-card" style="margin-top:14px">
+            <h4>What reviewers suggested</h4>
+            <div id="asks"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="games" style="background:var(--sunk)">
+    <div class="wrap">
+      <h2>Game spotlights</h2>
+      <p>Each dot is one reviewer's score. Dots close together mean reviewers agreed. Open "All reviewer notes" to read every comment.</p>
+      <div class="seg" id="cardSort" role="group" aria-label="Sort game cards"></div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section id="next">
+    <div class="wrap">
+      <h2>Level up for next time</h2>
+      <p class="lede">Three goals for the whole class, straight from what your reviewers asked for.</p>
+      <div class="next-grid">
+        <div class="next" style="--c:var(--teach);--soft:var(--teach-soft)">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><path d="M12 12h9M18 12v3M21 12v2"/></svg></div>
+          <h3>Make copyright the key</h3>
+          <p>Put a copyright question right where the player needs it to win, like the keys in Escape the Vault. Don't add questions on top of the game. Build the game around them.</p>
+        </div>
+        <div class="next" style="--c:var(--fun);--soft:var(--fun-soft)">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 18l5-6 4 3 7-9"/><path d="M15 6h5v5"/></svg></div>
+          <h3>Give players a reason to replay</h3>
+          <p>Harder levels, a real opponent, surprises that cost points. Reviewers asked for challenge and competition more than anything else.</p>
+        </div>
+        <div class="next" style="--c:var(--works);--soft:var(--works-soft)">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg></div>
+          <h3>Show your AI work where players can see it</h3>
+          <p>Put a clear link to your AI Documentation Doc or chat log right on the game page, with a sentence about what AI made and what you made.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>About this data.</strong> 19 peer reviews of 8 games, collected September 25 and 29, 2026, with a Google Form built from the class rubric. Each review scored four categories from 1 to 5. One test entry that was missing a score was removed. Games with only one or two reviews are marked, since a single review can swing an average a lot. Student names are left out on purpose. Every number on this page was recalculated from the raw form responses.</p>
+  </div>
+</footer>
+
+<script>
+const CATS = [
+  {key:'fun', name:'Fun to play', short:'Fun', c:'var(--fun)', soft:'var(--fun-soft)',
+   def:'The game is enjoyable, easy to understand, and makes you want to keep playing.',
+   icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="7" r="3.5"/><path d="M12 10.5V16"/><rect x="5" y="16" width="14" height="4.5" rx="2"/></svg>'},
+  {key:'teaches', name:'Teaches about copyright', short:'Teaches', c:'var(--teach)', soft:'var(--teach-soft)',
+   def:'The game teaches at least one clear, correct copyright idea that is built into the gameplay. Not chocolate covered broccoli!',
+   icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.2 9.3a4 4 0 1 0 0 5.4"/></svg>'},
+  {key:'graphics', name:'Graphics and design', short:'Graphics', c:'var(--gfx)', soft:'var(--gfx-soft)',
+   def:'The game looks clean, polished, and easy to see.',
+   icon:'<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.9 1.4-1.9-.5-1.3.3-2.6 1.7-2.6H18a3 3 0 0 0 3-3c0-5-4-8.5-9-8.5z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10.5" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></svg>'},
+  {key:'works', name:'Functionality', short:'Works', c:'var(--works)', soft:'var(--works-soft)',
+   def:'The game works from start to finish with no major bugs.',
+   icon:'<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>'}
+];
+
+const GAMES = [
+ {id:'chef', title:"Chef's Copyright Cafe", build:'Built in Canva', tools:['Canva AI'],
+  s:{fun:[4,5,5],teaches:[4,5,5],graphics:[5,5,5],works:[5,5,5]},
+  flag:'top', note:'2 of 3 reviewers gave a perfect score in every category, the only perfect reviews in the class. A reviewer said it "teaches us important things about copyright and fair use."',
+  notes:[["Very creative, pleasing aesthetic, teaches us important things about copyright and fair use.","Make more characters and options, because then the game gets repetitive."],
+         ["The animation is smooth.","Do something with the money."],
+         ["How interactive the game is.","Make it more difficult."]]},
+ {id:'vault', title:'Escape the Vault', build:'Coded with AI', tools:['Canva AI','Gemini','ChatGPT'],
+  s:{fun:[5],teaches:[4],graphics:[3],works:[4]},
+  flag:'small', note:'You answer copyright questions to earn the keys, so the learning is how you win. Only one review so far.',
+  notes:[["How you had to answer questions to get the keys, and it wasn't too easy. The guard catching you face was funny.","Give a warning when the guard is coming."]]},
+ {id:'tac', title:'Fair Use Tac-Toe', build:'Built in Canva', tools:['Canva AI','Gemini'],
+  s:{fun:[2,3,4],teaches:[5,3,5],graphics:[3,5,5],works:[3,5,5]},
+  note:'Strong on teaching and clean to use. Playing both sides of the board yourself held back the fun.',
+  notes:[["I liked how educational it was.","Maybe add a random chance that the AI gets the question right or wrong before it places an O."],
+         ["It's basic, easy to use, no bugs, easy to navigate.","Make an NPC play against you or make it multiplayer."],
+         ["I like the graphics, and it's smart how if you get a question wrong you lose the score.","Make a two-player option so you can go head to head against your friend, and cite what AI you used."]]},
+ {id:'carn', title:'Copyright Carnival', build:'Coded with AI', tools:['Gemini'],
+  s:{fun:[4,4],teaches:[5,2],graphics:[3,4],works:[5,4]},
+  flag:'small', note:'A board game idea reviewers enjoyed. They split on teaching, 5 and 2: the questions moved too fast for one player to read.',
+  notes:[["I like the idea of the board game.","I didn't have time to read some of the texts."],
+         ["I liked the choosable characters and the different things that happened when you rolled to different places.","Make the questions slower and clearer."]]},
+ {id:'rocket', title:'Rocket Car Soccer', build:'Coded with AI', tools:['ChatGPT'],
+  s:{fun:[5,2],teaches:[4,3],graphics:[5,3],works:[4,4]},
+  flag:'small', note:'The biggest fun split in the class, 5 and 2. Multiplayer was a hit; the car movement needs tuning.',
+  notes:[["I liked the fact that you could use multiplayer.","In multiplayer, switch who gets asked the question."],
+         ["I liked all of the boosts you could get.","The movement was a little faulty."]]},
+ {id:'whack', title:'Copyright Whack-a-Fact', build:'Built in Canva', tools:['Canva AI','Gemini'],
+  s:{fun:[3,3],teaches:[3,5],graphics:[4,3],works:[4,4]},
+  flag:'small', note:'Clear instructions and fun animation. Reviewers want more ways to win or lose points.',
+  notes:[["I like how you made it look and how clear the instructions are.","Add something else to keep the player hooked."],
+         ["I liked how the moles had an animation when they popped out.","Add some things that aren't moles that make you lose points."]]},
+ {id:'maze', title:'Copyright Maze', build:'Built in Canva', tools:['Canva AI'],
+  s:{fun:[3,3,3],teaches:[4,2,3],graphics:[4,5,4],works:[3,5,2]},
+  note:'A clean look and a smart moves counter. One reviewer got stuck on Level 2, and two wanted more copyright content.',
+  notes:[["I like how clean it is.","Make the instructions to some levels more clear."],
+         ["I like the way it tracks the amount of moves you used.","More about copyright."],
+         ["The maze idea with barriers is a great idea. I like that it tracks your moves.","Level 2 is impossible, I couldn't get to the exit."]]},
+ {id:'craft', title:'Copyright Craft: Defense of the Realm', build:'Built in Canva', tools:['Canva AI','Gemini'],
+  s:{fun:[3,4,4],teaches:[2,2,3],graphics:[4,4,4],works:[4,3,2]},
+  flag:'grow', note:'Reviewers loved the action: portals, villagers, Minecraft-style art. The next level is building the copyright questions into the battle, not beside it.',
+  notes:[["All the portals and different things to do.","Make it have more questions."],
+         ["I like the art style of Minecraft, and the shooting.","Add more questions about copyright, make it multiple choice."],
+         ["It was cool how you could go to the village and they would help attack the mobs.","Clearer questions, or being able to control where you shoot."]]}
+];
+
+const avg = a => a.reduce((x,y)=>x+y,0)/a.length;
+GAMES.forEach(g=>{
+  g.avg={}; CATS.forEach(c=>g.avg[c.key]=avg(g.s[c.key]));
+  g.overall=avg(CATS.map(c=>g.avg[c.key]));
+  g.n=g.s.fun.length;
+});
+const r2 = x => (Math.round(x*100)/100).toFixed(2);
+const rankOf = g => 1+GAMES.filter(o=>r2(o.overall)>r2(g.overall)).length;
+const tied = g => GAMES.filter(o=>r2(o.overall)===r2(g.overall)).length>1;
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+
+/* class-wide numbers from all 19 reviews */
+const ALL = {}; CATS.forEach(c=>ALL[c.key]=GAMES.flatMap(g=>g.s[c.key]));
+
+/* ---------- controller ---------- */
+const face=document.getElementById('face'), readout=document.getElementById('readout');
+const posClass={fun:'b-fun',teaches:'b-teach',graphics:'b-gfx',works:'b-works'};
+function showCat(k){
+  const c=CATS.find(x=>x.key===k);
+  face.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.k===k));
+  readout.style.setProperty('--cat',c.c);
+  readout.innerHTML=`<h3><span>${c.name}</span><span class="avg">${r2(avg(ALL[k]))}</span></h3><p>${c.def}</p><p class="small" style="margin-top:6px">Class average shown in color, out of 5.</p>`;
+}
+CATS.forEach(c=>{
+  const b=document.createElement('button');
+  b.className='btn-cat '+posClass[c.key]; b.dataset.k=c.key; b.type='button';
+  b.setAttribute('aria-label',c.name); b.innerHTML=c.icon;
+  b.addEventListener('click',()=>showCat(c.key));
+  face.appendChild(b);
+});
+showCat('fun');
+
+/* ---------- champion + shelf ---------- */
+const sorted=[...GAMES].sort((a,b)=>b.overall-a.overall||b.n-a.n);
+const champ=sorted[0];
+document.getElementById('champ').innerHTML=`
+  <div class="trophy" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h10v3h3v2a4 4 0 0 1-4 4h-.3A5 5 0 0 1 13 14.9V18h3v3H8v-3h3v-3.1A5 5 0 0 1 8.3 12H8a4 4 0 0 1-4-4V6h3zm0 5V8H6a2 2 0 0 0 1 1.7zm10 0v1.7A2 2 0 0 0 18 8z"/></svg></div>
+  <div>
+    <p class="muted" style="margin:0;font-weight:700">Top overall score</p>
+    <p class="game-name">${esc(champ.title)}</p>
+    <p class="score-big" style="margin:0">${r2(champ.overall)} out of 5, from ${champ.n} reviews</p>
+    <div class="chip-row">${CATS.map(c=>`<span class="cchip" style="--c:${c.c};--soft:${c.soft}"><i></i>${c.short} ${r2(champ.avg[c.key])}</span>`).join('')}</div>
+  </div>`;
+document.getElementById('shelf').innerHTML=CATS.map(c=>{
+  const best=[...GAMES].sort((a,b)=>b.avg[c.key]-a.avg[c.key]||b.n-a.n)[0];
+  let note='';
+  if(c.key==='fun'){
+    const runner=[...GAMES].filter(g=>g.n>=3).sort((a,b)=>b.avg.fun-a.avg.fun)[0];
+    note=`<p class="note">From 1 review. Among games with 3 reviews, ${esc(runner.title)} led fun at ${r2(runner.avg.fun)}.</p>`;
+  }
+  return `<div class="slot" style="--c:${c.c}"><p class="cat">${c.name}</p><p class="who">${esc(best.title)}</p><span class="num">${r2(best.avg[c.key])} avg</span>${note}</div>`;
+}).join('');
+
+/* ---------- leaderboard ---------- */
+const FILTERS=[
+  {id:'all',label:'All games',fn:()=>true},
+  {id:'top',label:'Overall 4.0 and up',fn:g=>g.overall>=3.995},
+  {id:'canva',label:'Built in Canva',fn:g=>g.build==='Built in Canva'},
+  {id:'coded',label:'Coded with AI',fn:g=>g.build==='Coded with AI'},
+  {id:'t-canva',label:'Used Canva AI',fn:g=>g.tools.includes('Canva AI')},
+  {id:'t-gem',label:'Used Gemini',fn:g=>g.tools.includes('Gemini')},
+  {id:'t-gpt',label:'Used ChatGPT',fn:g=>g.tools.includes('ChatGPT')}
+];
+const COLS=[
+  {k:'rank',label:'Rank',get:g=>rankOf(g)},
+  {k:'title',label:'Game',get:g=>g.title},
+  ...CATS.map(c=>({k:c.key,label:c.short,cat:c,get:g=>g.avg[c.key]})),
+  {k:'overall',label:'Overall',get:g=>g.overall},
+  {k:'n',label:'Reviews',get:g=>g.n}
+];
+let state={filter:'all',sort:'overall',dir:'desc'};
+const fwrap=document.getElementById('filters');
+FILTERS.forEach(f=>{
+  const b=document.createElement('button'); b.type='button'; b.className='fchip'; b.textContent=f.label;
+  b.setAttribute('aria-pressed',f.id===state.filter);
+  b.addEventListener('click',()=>{state.filter=f.id;fwrap.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderTable();});
+  fwrap.appendChild(b);
+});
+function renderHead(){
+  document.getElementById('thead').innerHTML=COLS.map(col=>{
+    const s=state.sort===col.k?(state.dir==='asc'?'ascending':'descending'):'none';
+    const dot=col.cat?`<span class="th-dot" style="--c:${col.cat.c}"></span>`:'';
+    const arrow=state.sort===col.k?(state.dir==='asc'?'▲':'▼'):'▼';
+    return `<th scope="col" aria-sort="${s}"><button class="sortbtn" type="button" data-k="${col.k}">${dot}${col.label}<span class="arrow" aria-hidden="true">${arrow}</span></button></th>`;
+  }).join('');
+  document.querySelectorAll('.sortbtn').forEach(b=>b.addEventListener('click',()=>{
+    const k=b.dataset.k;
+    if(state.sort===k) state.dir=state.dir==='asc'?'desc':'asc';
+    else {state.sort=k; state.dir=(k==='title'||k==='rank')?'asc':'desc';}
+    renderTable();
+  }));
+}
+function renderTable(){
+  renderHead();
+  const f=FILTERS.find(x=>x.id===state.filter);
+  const col=COLS.find(c=>c.k===state.sort);
+  let rows=GAMES.filter(f.fn);
+  rows.sort((a,b)=>{
+    const va=col.get(a), vb=col.get(b);
+    let d = typeof va==='string' ? va.localeCompare(vb) : va-vb;
+    if(d===0) d=a.overall-b.overall||a.n-b.n;
+    return state.dir==='asc'?d:-d;
+  });
+  document.getElementById('showing').textContent=`Showing ${rows.length} of ${GAMES.length} games`;
+  const tb=document.getElementById('tbody');
+  if(!rows.length){tb.innerHTML=`<tr><td colspan="${COLS.length}" class="empty">No games match this filter. Choose "All games" to see every result.</td></tr>`;return;}
+  tb.innerHTML=rows.map(g=>{
+    const rk=rankOf(g);
+    const cells=CATS.map(c=>{
+      const v=g.avg[c.key], w=(v/5*100).toFixed(1);
+      return `<td><div class="sc"><b>${r2(v)}</b><div class="bar" style="--c:${c.c};--w:${w}%" aria-hidden="true"><i></i></div></div></td>`;
+    }).join('');
+    const smallPill=g.n<2?'<span class="pill warn">1 review</span>':'';
+    return `<tr class="${rk===1?'first':''}">
+      <td class="rank">${tied(g)?'T-':''}${rk}</td>
+      <td class="gname">${esc(g.title)}<small>${g.build}, ${g.tools.join(', ')}</small></td>
+      ${cells}
+      <td class="overall">${r2(g.overall)}</td>
+      <td>${g.n}${smallPill}</td></tr>`;
+  }).join('');
+}
+renderTable();
+
+/* ---------- trend charts ---------- */
+function hbars(el,items,max,fmt){
+  document.getElementById(el).innerHTML=items.map(it=>`
+    <div class="hbar-row" style="--c:${it.c||'var(--ink-2)'};--w:${(it.v/max*100).toFixed(1)}%">
+      <span class="lbl">${it.label}</span><div class="track"><div class="fill"></div></div><span class="val">${fmt?fmt(it.v):it.v}</span>
+    </div>`).join('');
+}
+hbars('catAvgs',CATS.map(c=>({label:c.name,v:avg(ALL[c.key]),c:c.c})),5,r2);
+
+/* dumbbell */
+(function(){
+  const rows=[...GAMES].sort((a,b)=>((b.avg.graphics+b.avg.works)-(b.avg.fun+b.avg.teaches))-((a.avg.graphics+a.avg.works)-(a.avg.fun+a.avg.teaches)));
+  const W=560,rowH=34,top=16,left=190,right=24,H=top+rows.length*rowH+30;
+  const x=v=>left+(v-2.5)/(5-2.5)*(W-left-right);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="For each game, the average of graphics and functionality compared with the average of fun and teaching. Seven of eight games score higher on graphics and functionality.">`;
+  [2.5,3,3.5,4,4.5,5].forEach(t=>{s+=`<line x1="${x(t)}" x2="${x(t)}" y1="${top-6}" y2="${H-26}" stroke="var(--line)" stroke-width="1"/><text x="${x(t)}" y="${H-8}" font-size="12" text-anchor="middle" fill="var(--ink-2)">${t}</text>`;});
+  rows.forEach((g,i)=>{
+    const y=top+i*rowH+rowH/2, pol=(g.avg.graphics+g.avg.works)/2, sub=(g.avg.fun+g.avg.teaches)/2;
+    const rev=sub>pol;
+    s+=`<text x="${left-10}" y="${y+4}" font-size="13" text-anchor="end" font-weight="${rev?700:400}">${esc(g.title.length>26?g.title.slice(0,24)+'…':g.title)}</text>`;
+    s+=`<line x1="${x(sub)}" x2="${x(pol)}" y1="${y}" y2="${y}" stroke="${rev?'var(--fun)':'var(--ink-3)'}" stroke-width="5" stroke-linecap="round"/>`;
+    s+=`<circle cx="${x(sub)}" cy="${y}" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2.5"/>`;
+    s+=`<circle cx="${x(pol)}" cy="${y}" r="7" fill="var(--ink)"/>`;
+  });
+  s+='</svg>';
+  document.getElementById('dumbbell').innerHTML=s;
+})();
+
+/* distribution */
+(function(){
+  const shades={2:'22%',3:'45%',4:'70%',5:'100%'};
+  document.getElementById('dist').innerHTML=CATS.map(c=>{
+    const counts=[2,3,4,5].map(v=>ALL[c.key].filter(x=>x===v).length);
+    const total=ALL[c.key].length;
+    const segs=[2,3,4,5].map((v,i)=>counts[i]?`<div class="dist-seg" style="width:${counts[i]/total*100}%;background:color-mix(in srgb,${c.c} ${shades[v]},var(--surface))${v>=4?';color:#fff':''}" title="${counts[i]} reviewers gave a ${v}">${counts[i]}</div>`:'').join('');
+    return `<div class="hbar-row" style="grid-template-columns:120px 1fr"><span class="lbl" style="color:${c.c}">${c.short}</span><div class="track" style="display:flex;height:30px" role="img" aria-label="${c.name}: ${counts.map((n,i)=>n+' gave a '+(i+2)).join(', ')}">${segs}</div></div>`;
+  }).join('');
+  document.getElementById('distLegend').innerHTML=[2,3,4,5].map(v=>`<span><i style="background:color-mix(in srgb,var(--ink) ${shades[v]},var(--surface))"></i>Score of ${v}</span>`).join('')+'<span>Nobody gave a 1.</span>';
+})();
+
+/* donut */
+(function(){
+  const parts=[{l:'Detailed, with doc or chat log',v:7,c:'var(--ink)'},{l:'Some detail, tool named only',v:2,c:'var(--ink-2)'},{l:'Little to none',v:10,c:'var(--ink-3)'}];
+  const total=19,R=54,C=2*Math.PI*R; let off=0;
+  let s=`<svg viewBox="0 0 150 150" width="150" height="150" role="img" aria-label="AI documentation: 7 detailed, 2 some detail, 10 little to none, out of 19 reviews."><g transform="rotate(-90 75 75)">`;
+  parts.forEach(p=>{const len=p.v/total*C; s+=`<circle cx="75" cy="75" r="${R}" fill="none" stroke="${p.c}" stroke-width="22" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}"/>`; off+=len;});
+  s+=`</g><text x="75" y="72" text-anchor="middle" font-size="26" style="font-family:var(--display)">7</text><text x="75" y="92" text-anchor="middle" font-size="11" fill="var(--ink-2)">of 19 detailed</text></svg>`;
+  s+=`<div class="legend" style="flex-direction:column;margin:0">${parts.map(p=>`<span><i style="background:${p.c}"></i>${p.l}: <strong>${p.v}</strong></span>`).join('')}</div>`;
+  document.getElementById('donut').innerHTML=s;
+})();
+
+hbars('tools',[{label:'Canva AI',v:13},{label:'Gemini',v:9},{label:'ChatGPT',v:3},{label:'Not sure',v:2}],13);
+hbars('likes',[{label:'Game mechanics',v:12},{label:'Look and animation',v:7},{label:'Easy to use',v:2},{label:'Learning copyright',v:2,c:'var(--teach)'}],12);
+hbars('asks',[{label:'More challenge',v:5},{label:'Copyright questions',v:4,c:'var(--teach)'},{label:'A real opponent',v:4},{label:'Clearer pacing',v:3},{label:'Fix bugs, controls',v:3}],5);
+
+/* ---------- cards ---------- */
+let cardSort='overall';
+const sortWrap=document.getElementById('cardSort');
+[{k:'overall',l:'Overall'},...CATS.map(c=>({k:c.key,l:c.short}))].forEach(o=>{
+  const b=document.createElement('button'); b.type='button'; b.textContent=o.l; b.setAttribute('aria-pressed',o.k===cardSort);
+  b.addEventListener('click',()=>{cardSort=o.k;sortWrap.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));renderCards();});
+  sortWrap.appendChild(b);
+});
+function strip(c,g){
+  const scores=g.s[c.key], seen={};
+  const dots=scores.map(v=>{seen[v]=(seen[v]||0)+1; const dy=[0,-6,6][(seen[v]-1)%3]; return `<span class="d" style="left:calc(8px + ${(v-1)/4} * (100% - 16px));margin-top:${dy-6}px"></span>`;}).join('');
+  return `<div class="strip" style="--c:${c.c};--w:${(g.avg[c.key]-1)/4*100}%"><span class="k">${c.short}</span><div class="t" role="img" aria-label="${c.short}: reviewer scores ${scores.join(', ')}">${dots}</div><span class="a">${r2(g.avg[c.key])}</span></div>`;
+}
+function renderCards(){
+  const list=[...GAMES].sort((a,b)=>cardSort==='overall'?(b.overall-a.overall||b.n-a.n):(b.avg[cardSort]-a.avg[cardSort]||b.overall-a.overall));
+  document.getElementById('cards').innerHTML=list.map(g=>{
+    const rib = g.flag==='top'?'<span class="ribbon top">Top overall</span>'
+             : g.flag==='grow'?'<span class="ribbon grow">Growth spot: teaching</span>'
+             : g.n===1?'<span class="ribbon small">Only 1 review so far</span>':'';
+    const [like,next]=g.notes[0];
+    return `<article class="gcard ${g.flag==='top'?'top':''} ${g.flag==='grow'?'grow':''}">
+      <header><div><h3 class="gt">${esc(g.title)}</h3><p class="meta">${g.build}. AI: ${g.tools.join(', ')}. ${g.n} review${g.n>1?'s':''}.</p></div>
+      <div class="ov">${r2(g.overall)}<small>overall</small></div></header>
+      ${rib}
+      ${CATS.map(c=>strip(c,g)).join('')}
+      <p class="teacher-note">${esc(g.note)}</p>
+      <p class="quote q-like"><b>A reviewer liked</b>"${esc(like)}"</p>
+      <p class="quote q-next"><b>A reviewer suggested</b>"${esc(next)}"</p>
+      <details><summary>All reviewer notes (${g.notes.length})</summary><ul>${g.notes.map(([l,n])=>`<li><strong>Liked:</strong> ${esc(l)}<br><strong>Suggested:</strong> ${esc(n)}</li>`).join('')}</ul></details>
+    </article>`;
+  }).join('');
+}
+renderCards();
+</script>
+</body>
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5.4 Copyright & Fair Use Game Showcase - Class Results</title>
+    <style>
+        :root {
+            --bg-main: #0f172a;
+            --card-bg: #1e293b;
+            --card-hover: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            
+            --fun-color: #ff5964;
+            --teach-color: #38bdf8;
+            --graphics-color: #a855f7;
+            --func-color: #34d399;
+            --gold-accent: #fbbf24;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- HERO HEADER --- */
+        header {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: linear-gradient(135deg, #1e1b4b 0%, #311042 50%, #1e293b 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .badge-title {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--teach-color);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.8rem;
+            background: linear-gradient(to right, #ffffff, #38bdf8, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .rubric-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .rubric-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .rubric-badge.fun { border-color: var(--fun-color); color: var(--fun-color); }
+        .rubric-badge.teach { border-color: var(--teach-color); color: var(--teach-color); }
+        .rubric-badge.graphics { border-color: var(--graphics-color); color: var(--graphics-color); }
+        .rubric-badge.func { border-color: var(--func-color); color: var(--func-color); }
+
+        /* --- AT A GLANCE SUMMARY --- */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card.winner-card {
+            border-color: var(--gold-accent);
+            background: linear-gradient(145deg, #1e293b, #2d2305);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .stat-card .subtext {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* --- LEADERBOARD TABLE SECTION --- */
+        .section-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: var(--bg-main);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--teach-color);
+            color: #0f172a;
+            border-color: var(--teach-color);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 1rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            cursor: pointer;
+            user-select: none;
+            border-bottom: 2px solid var(--border-color);
+            transition: color 0.2s;
+        }
+
+        th:hover {
+            color: var(--text-main);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.95rem;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .game-title-cell {
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .score-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .bar-container {
+            width: 100px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 0.5rem;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* --- TRENDS SECTION --- */
+        .trends-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .trend-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem;
+        }
+
+        .trend-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-main);
+        }
+
+        .chart-bar-group {
+            margin-bottom: 1rem;
+        }
+
+        .chart-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .chart-bar-bg {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .chart-bar-value {
+            height: 100%;
+            border-radius: 6px;
+        }
+
+        /* --- GAME SPOTLIGHT CARDS --- */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-card.featured {
+            border-color: var(--gold-accent);
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.15);
+        }
+
+        .game-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .game-card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .overall-badge {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--gold-accent);
+            padding: 0.3rem 0.7rem;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+
+        .mini-scores {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 0.8rem;
+            border-radius: 10px;
+        }
+
+        .mini-score-item {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .mini-score-item span {
+            font-weight: 700;
+            color: var(--text-main);
+            float: right;
+        }
+
+        .quote-box {
+            background: rgba(15, 23, 42, 0.8);
+            border-left: 3px solid var(--teach-color);
+            padding: 0.8rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.88rem;
+            font-style: italic;
+            margin-bottom: 0.6rem;
+            color: #cbd5e1;
+        }
+
+        .quote-box.improvement {
+            border-left-color: var(--fun-color);
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        /* --- NEXT STEPS --- */
+        .next-steps-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .step-item {
+            background: rgba(15, 23, 42, 0.5);
+            border-left: 4px solid var(--teach-color);
+            padding: 1.2rem;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .step-item h4 {
+            font-size: 1.05rem;
+            margin-bottom: 0.4rem;
+            color: var(--text-main);
+        }
+
+        .step-item p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HERO HEADER -->
+    <header>
+        <div class="badge-title">Web Design Class Showcase</div>
+        <h1>5.4 Copyright & Fair Use Game Results</h1>
+        <p>Students designed interactive games to teach copyright and fair use using AI tools and code, followed by rigorous 4-part peer reviews.</p>
+        
+        <div class="rubric-badges">
+            <div class="rubric-badge fun">🎮 1. Fun to Play</div>
+            <div class="rubric-badge teach">💡 2. Teaches Copyright</div>
+            <div class="rubric-badge graphics">🎨 3. Graphics & Design</div>
+            <div class="rubric-badge func">⚙️ 4. Functionality</div>
+        </div>
+    </header>
+
+    <!-- AT A GLANCE SUMMARY -->
+    <div class="summary-grid">
+        <div class="stat-card winner-card">
+            <h3>🏆 Overall Champion</h3>
+            <div class="value" style="color: var(--gold-accent);">Chef's Cafe</div>
+            <div class="subtext">Highest Score: <b>4.83 / 5.00</b> (3 reviews)</div>
+        </div>
+        <div class="stat-card">
+            <h3>📊 Peer Review Scope</h3>
+            <div class="value">19 Reviews</div>
+            <div class="subtext">8 Student Games Rated</div>
+        </div>
+        <div class="stat-card">
+            <h3>⭐ Class Average</h3>
+            <div class="value">3.84 / 5.0</div>
+            <div class="subtext">Across All 4 Categories</div>
+        </div>
+        <div class="stat-card">
+            <h3>👑 Fun Category Winner</h3>
+            <div class="value" style="color: var(--fun-color);">Escape Vault</div>
+            <div class="subtext">5.00 Score <span style="opacity: 0.7;">(1 review sample)</span></div>
+        </div>
+    </div>
+
+    <!-- LEADERBOARD TABLE -->
+    <div class="section-container">
+        <div class="section-header">
+            <h2>🏆 Interactive Class Leaderboard</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterGames('all')">All Games</button>
+                <button class="filter-btn" onclick="filterGames('top')">Top Rated (4.0+)</button>
+                <button class="filter-btn" onclick="filterGames('canva')">Canva AI</button>
+                <button class="filter-btn" onclick="filterGames('gemini')">Gemini</button>
+                <button class="filter-btn" onclick="filterGames('chatgpt')">ChatGPT</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="leaderboardTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Game Title ⇕</th>
+                        <th onclick="sortTable(1)">Reviews ⇕</th>
+                        <th onclick="sortTable(2)">🎮 Fun ⇕</th>
+                        <th onclick="sortTable(3)">💡 Teaches ⇕</th>
+                        <th onclick="sortTable(4)">🎨 Graphics ⇕</th>
+                        <th onclick="sortTable(5)">⚙️ Func ⇕</th>
+                        <th onclick="sortTable(6)">⭐ Overall ⇕</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TRENDS & CLASS INSIGHTS -->
+    <div class="section-container">
+        <div class="section-header">
+            <h2>📈 Key Class-Wide Trends & Insights</h2>
+        </div>
+
+        <div class="trends-grid">
+            <!-- Trend 1: Polish vs Substance -->
+            <div class="trend-card">
+                <h3>🎨 Finding 1: Polish Outpaces Educational Substance</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+                    Across all 19 reviews, students consistently achieved higher scores in visual design and functional code than in gameplay fun or educational depth.
+                </p>
+
+                <div class="chart-bar-group">
+                    <div class="chart-label"><span>Graphics & Design</span><span>4.11 / 5.0</span></div>
+                    <div class="chart-bar-bg"><div class="chart-bar-value" style="width: 82.2%; background: var(--graphics-color);"></div></div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-label"><span>Functionality</span><span>4.00 / 5.0</span></div>
+                    <div class="chart-bar-bg"><div class="chart-bar-value" style="width: 80.0%; background: var(--func-color);"></div></div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-label"><span>Fun to Play</span><span>3.63 / 5.0</span></div>
+                    <div class="chart-bar-bg"><div class="chart-bar-value" style="width: 72.6%; background: var(--fun-color);"></div></div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-label"><span>Teaches About Copyright</span><span>3.63 / 5.0</span></div>
+                    <div class="chart-bar-bg"><div class="chart-bar-value" style="width: 72.6%; background: var(--teach-color);"></div></div>
+                </div>
+            </div>
+
+            <!-- Trend 2: AI Disclosure Gap -->
+            <div class="trend-card">
+                <h3>🤖 Finding 2: High AI Usage, Low Attribution Detail</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+                    While over 90% of games utilized AI assistance (Canva AI being most common), fewer than 4 in 10 submissions provided detailed documentation.
+                </p>
+
+                <div class="chart-bar-group">
+                    <div class="chart-label"><span>Little to No Attribution</span><span>52.6% (10 reviews)</span></div>
+                    <div class="chart-bar-bg"><div class="chart-bar-value" style="width: 52.6%; background: #ef4444;"></div></div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-label"><span>Detailed (Link + Chat Log)</span><span>36.8% (7 reviews)</span></div>
+                    <div class="chart-bar-bg"><div class="chart-bar-value" style="width: 36.8%; background: var(--func-color);"></div></div>
+                </div>
+                <div class="chart-bar-group">
+                    <div class="chart-label"><span>Some Detail (Tool Named Only)</span><span>10.5% (2 reviews)</span></div>
+                    <div class="chart-bar-bg"><div class="chart-bar-value" style="width: 10.5%; background: var(--gold-accent);"></div></div>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem;">
+                    💡 <b>Data Insight:</b> Games created using Gemini/ChatGPT had a 71% detailed documentation rate, whereas Canva AI-only games had just 14%, showing how tool workflows impact documentation habits.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME SPOTLIGHT CARDS -->
+    <div class="section-container">
+        <div class="section-header">
+            <h2>🎮 Game Spotlight & Peer Feedback</h2>
+        </div>
+
+        <div class="games-grid" id="gamesGrid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- WHAT'S NEXT SECTION -->
+    <div class="section-container">
+        <div class="section-header">
+            <h2>🚀 Growth Plan: What We Can Focus On Next</h2>
+        </div>
+
+        <div class="next-steps-list">
+            <div class="step-item">
+                <h4>1. Avoid "Chocolate Covered Broccoli"</h4>
+                <p>Weave educational questions directly into core game actions (like shooting, racing, or dodging) rather than treating questions like separate pop-up speedbumps.</p>
+            </div>
+            <div class="step-item">
+                <h4>2. Standardize AI Documentation</h4>
+                <p>Make linking an exported AI chat log or documentation Google Doc a mandatory step before submitting web design projects.</p>
+            </div>
+            <div class="step-item">
+                <h4>3. Conduct Early Playtesting</h4>
+                <p>Test multiplayer mechanics and opponent AI timing with classmates early to catch turn-taking issues and bugged levels before final publishing.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Web Design Class • 5.4 Copyright & Fair Use Results Showcase • Anonymized Peer Feedback Dashboard
+    </footer>
+
+</div>
+
+<script>
+    // Raw Data Verification Matched
+    const gamesData = [
+        {
+            title: "Chef's Copyright Cafe",
+            reviews: 3,
+            fun: 4.67,
+            teaches: 4.67,
+            graphics: 5.00,
+            func: 5.00,
+            overall: 4.83,
+            aiTools: ["Canva AI"],
+            aiDoc: "Varied (37% Detailed Class-Wide)",
+            featured: true,
+            likedQuote: "Very creative, pleasing aesthetic, smooth animations, and teaches important copyright ideas.",
+            improveQuote: "Make it more difficult or add more character options so it stays fresh."
+        },
+        {
+            title: "Escape the Vault",
+            reviews: 1,
+            fun: 5.00,
+            teaches: 4.00,
+            graphics: 3.00,
+            func: 4.00,
+            overall: 4.00,
+            aiTools: ["Canva AI", "Gemini", "ChatGPT"],
+            aiDoc: "Some Detail",
+            featured: false,
+            sampleFlag: "Small Sample (1 Review)",
+            likedQuote: "How you had to answer questions to get keys, and the guard catching face was funny!",
+            improveQuote: "Give a warning when the guard is coming."
+        },
+        {
+            title: "Fair Use Tac-Toe",
+            reviews: 3,
+            fun: 3.00,
+            teaches: 4.33,
+            graphics: 4.33,
+            func: 4.33,
+            overall: 4.00,
+            aiTools: ["Canva AI", "Gemini"],
+            aiDoc: "Little to None",
+            featured: false,
+            likedQuote: "Very educational, clean, easy to navigate, and bug-free.",
+            improveQuote: "Add an AI/NPC opponent or multiplayer mode so you don't play against yourself."
+        },
+        {
+            title: "Copyright Carnival",
+            reviews: 2,
+            fun: 4.00,
+            teaches: 3.50,
+            graphics: 3.50,
+            func: 4.50,
+            overall: 3.88,
+            aiTools: ["Gemini"],
+            aiDoc: "Detailed",
+            featured: false,
+            likedQuote: "Loved the board game concept, choosable characters, and dice roll events.",
+            improveQuote: "Make the question text stay on screen longer so players can digest it."
+        },
+        {
+            title: "Rocket Car Soccer",
+            reviews: 2,
+            fun: 3.50,
+            teaches: 3.50,
+            graphics: 4.00,
+            func: 4.00,
+            overall: 3.75,
+            aiTools: ["ChatGPT"],
+            aiDoc: "Detailed",
+            featured: false,
+            likedQuote: "Awesome multiplayer option and cool speed boosts!",
+            improveQuote: "Alternate question turns between players and refine vehicle movement controls."
+        },
+        {
+            title: "Copyright Whack-a-Fact",
+            reviews: 2,
+            fun: 3.00,
+            teaches: 4.00,
+            graphics: 3.50,
+            func: 4.00,
+            overall: 3.63,
+            aiTools: ["Canva AI", "Gemini"],
+            aiDoc: "Detailed",
+            featured: false,
+            likedQuote: "Great mole pop-up animations and very clear game instructions.",
+            improveQuote: "Add non-mole targets or point penalties to keep gameplay engaging."
+        },
+        {
+            title: "Copyright Maze",
+            reviews: 3,
+            fun: 3.00,
+            teaches: 3.00,
+            graphics: 4.33,
+            func: 3.33,
+            overall: 3.42,
+            aiTools: ["Canva AI"],
+            aiDoc: "Little to None",
+            featured: false,
+            likedQuote: "Clean visual layout and clever step/move tracking feature.",
+            improveQuote: "Fix the Level 2 exit block bug and add deeper copyright learning points."
+        },
+        {
+            title: "Copyright Craft: Defense of the Realm",
+            reviews: 3,
+            fun: 3.67,
+            teaches: 2.33,
+            graphics: 4.00,
+            func: 3.00,
+            overall: 3.25,
+            aiTools: ["Canva AI", "Gemini"],
+            aiDoc: "Little to None",
+            featured: false,
+            growthOpportunity: "High Action, Learning Focus Area",
+            likedQuote: "Fun Minecraft art style, village portals, and active mob shooting gameplay!",
+            improveQuote: "Add more clear, multiple-choice copyright questions into the action flow."
+        }
+    ];
+
+    let currentData = [...gamesData];
+    let sortAsc = false;
+
+    function renderTable(data) {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = '';
+
+        data.forEach(game => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td class="game-title-cell">
+                    ${game.featured ? '🏆 ' : ''}${game.title}
+                    ${game.sampleFlag ? `<span style="font-size:0.75rem; color:var(--gold-accent);">(${game.sampleFlag})</span>` : ''}
+                </td>
+                <td>${game.reviews}</td>
+                <td>${game.fun.toFixed(2)}</td>
+                <td>${game.teaches.toFixed(2)}</td>
+                <td>${game.graphics.toFixed(2)}</td>
+                <td>${game.func.toFixed(2)}</td>
+                <td>
+                    <span class="score-pill">
+                        ${game.overall.toFixed(2)}
+                        <span class="bar-container">
+                            <span class="bar-fill" style="width: ${(game.overall/5)*100}%; background: var(--teach-color);"></span>
+                        </span>
+                    </span>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function renderCards(data) {
+        const grid = document.getElementById('gamesGrid');
+        grid.innerHTML = '';
+
+        data.forEach(game => {
+            const card = document.createElement('div');
+            card.className = `game-card ${game.featured ? 'featured' : ''}`;
+            
+            card.innerHTML = `
+                <div>
+                    <div class="game-card-header">
+                        <div>
+                            <div class="game-card-title">${game.title}</div>
+                            <div style="font-size:0.8rem; color:var(--text-muted);">${game.reviews} Peer Review${game.reviews > 1 ? 's' : ''}</div>
+                        </div>
+                        <div class="overall-badge">${game.overall.toFixed(2)}</div>
+                    </div>
+
+                    <div class="mini-scores">
+                        <div class="mini-score-item">🎮 Fun: <span>${game.fun.toFixed(2)}</span></div>
+                        <div class="mini-score-item">💡 Teaches: <span>${game.teaches.toFixed(2)}</span></div>
+                        <div class="mini-score-item">🎨 Graphics: <span>${game.graphics.toFixed(2)}</span></div>
+                        <div class="mini-score-item">⚙️ Function: <span>${game.func.toFixed(2)}</span></div>
+                    </div>
+
+                    <div class="quote-box">
+                        <b>What Worked:</b> "${game.likedQuote}"
+                    </div>
+                    <div class="quote-box improvement">
+                        <b>Next Level:</b> "${game.improveQuote}"
+                    </div>
+                </div>
+
+                <div>
+                    <div class="tags-container">
+                        ${game.aiTools.map(tool => `<span class="tag">🤖 ${tool}</span>`).join('')}
+                        ${game.growthOpportunity ? `<span class="tag" style="background:rgba(239, 68, 68, 0.2); color:#fca5a5;">🌱 Growth Opportunity</span>` : ''}
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function sortTable(columnIndex) {
+        const keys = ['title', 'reviews', 'fun', 'teaches', 'graphics', 'func', 'overall'];
+        const key = keys[columnIndex];
+
+        sortAsc = !sortAsc;
+        currentData.sort((a, b) => {
+            if (typeof a[key] === 'string') {
+                return sortAsc ? a[key].localeCompare(b[key]) : b[key].localeCompare(a[key]);
+            }
+            return sortAsc ? a[key] - b[key] : b[key] - a[key];
+        });
+
+        renderTable(currentData);
+    }
+
+    function filterGames(category) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+
+        if (category === 'all') {
+            currentData = [...gamesData];
+        } else if (category === 'top') {
+            currentData = gamesData.filter(g => g.overall >= 4.0);
+        } else if (category === 'canva') {
+            currentData = gamesData.filter(g => g.aiTools.includes('Canva AI'));
+        } else if (category === 'gemini') {
+            currentData = gamesData.filter(g => g.aiTools.includes('Gemini'));
+        } else if (category === 'chatgpt') {
+            currentData = gamesData.filter(g => g.aiTools.includes('ChatGPT'));
+        }
+
+        renderTable(currentData);
+        renderCards(currentData);
+    }
+
+    // Initial render
+    renderTable(currentData);
+    renderCards(currentData);
+</script>
+
+</body>
+</html>
